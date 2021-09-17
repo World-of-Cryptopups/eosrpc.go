@@ -1,5 +1,7 @@
 package eosrpc
 
+import "encoding/json"
+
 // Response for GetAccount
 type GetAccountResponse struct {
 	AccountName            string              `json:"account_name"`
@@ -9,12 +11,12 @@ type GetAccountResponse struct {
 	LastCodeUpdate         string              `json:"last_code_update"`
 	Created                string              `json:"created"`
 	CoreLiquidBalance      string              `json:"core_liquid_balance"`
-	RAMQuota               int64               `json:"ram_quota"`
-	NetWeight              int64               `json:"net_weight"`
-	CPUWeight              int64               `json:"cpu_weight"`
+	RAMQuota               json.Number         `json:"ram_quota"`
+	NetWeight              json.Number         `json:"net_weight"`
+	CPUWeight              json.Number         `json:"cpu_weight"`
 	NetLimit               Limit               `json:"net_limit"`
 	CPULimit               Limit               `json:"cpu_limit"`
-	RAMUsage               int64               `json:"ram_usage"`
+	RAMUsage               json.Number         `json:"ram_usage"`
 	Permissions            []PermissionElement `json:"permissions"`
 	TotalResources         TotalResources      `json:"total_resources"`
 	SelfDelegatedBandwidth interface{}         `json:"self_delegated_bandwidth"`
@@ -25,9 +27,9 @@ type GetAccountResponse struct {
 }
 
 type Limit struct {
-	Used      int64 `json:"used"`
-	Available int64 `json:"available"`
-	Max       int64 `json:"max"`
+	Used      json.Number `json:"used"`
+	Available json.Number `json:"available"`
+	Max       json.Number `json:"max"`
 }
 
 type PermissionElement struct {
@@ -54,17 +56,17 @@ type AccountPermission struct {
 }
 
 type TotalResources struct {
-	Owner     string `json:"owner"`
-	NetWeight string `json:"net_weight"`
-	CPUWeight string `json:"cpu_weight"`
-	RAMBytes  int64  `json:"ram_bytes"`
+	Owner     string      `json:"owner"`
+	NetWeight string      `json:"net_weight"`
+	CPUWeight string      `json:"cpu_weight"`
+	RAMBytes  json.Number `json:"ram_bytes"`
 }
 
 type VoterInfo struct {
 	Owner                      string        `json:"owner"`
 	Proxy                      string        `json:"proxy"`
 	Producers                  []interface{} `json:"producers"`
-	Staked                     string        `json:"staked"`
+	Staked                     json.Number   `json:"staked"`
 	UnpaidVoteshare            string        `json:"unpaid_voteshare"`
 	UnpaidVoteshareLastUpdated string        `json:"unpaid_voteshare_last_updated"`
 	UnpaidVoteshareChangeRate  string        `json:"unpaid_voteshare_change_rate"`
@@ -158,10 +160,10 @@ type GetBlockHeaderStateResponse struct {
 	ID                               string          `json:"id"`
 	BlockNum                         int64           `json:"block_num"`
 	Header                           Header          `json:"header"`
-	DposProposedIrreversibleBlocknum string          `json:"dpos_proposed_irreversible_blocknum"`
-	DposIrreversibleBlocknum         string          `json:"dpos_irreversible_blocknum"`
-	BFTIrreversibleBlocknum          string          `json:"bft_irreversible_blocknum"`
-	PendingScheduleLIBNum            string          `json:"pending_schedule_lib_num"`
+	DposProposedIrreversibleBlocknum json.Number     `json:"dpos_proposed_irreversible_blocknum"`
+	DposIrreversibleBlocknum         json.Number     `json:"dpos_irreversible_blocknum"`
+	BFTIrreversibleBlocknum          json.Number     `json:"bft_irreversible_blocknum"`
+	PendingScheduleLIBNum            json.Number     `json:"pending_schedule_lib_num"`
 	PendingScheduleHash              string          `json:"pending_schedule_hash"`
 	PendingSchedule                  ActiveSchedule  `json:"pending_schedule"`
 	ActiveSchedule                   ActiveSchedule  `json:"active_schedule"`
@@ -258,15 +260,15 @@ type GetRequiredKeysResponse struct {
 }
 
 type Transaction struct {
-	Expiration            string    `json:"expiration"`
-	RefBlockNum           int64     `json:"ref_block_num"`
-	RefBlockPrefix        int64     `json:"ref_block_prefix"`
-	MaxNetUsageWords      string    `json:"max_net_usage_words"`
-	MaxCPUUsageMS         string    `json:"max_cpu_usage_ms"`
-	DelaySEC              int64     `json:"delay_sec"`
-	ContextFreeActions    []Action  `json:"context_free_actions"`
-	Actions               []Action  `json:"actions"`
-	TransactionExtensions [][]int64 `json:"transaction_extensions"`
+	Expiration            string      `json:"expiration"`
+	RefBlockNum           int64       `json:"ref_block_num"`
+	RefBlockPrefix        int64       `json:"ref_block_prefix"`
+	MaxNetUsageWords      json.Number `json:"max_net_usage_words"`
+	MaxCPUUsageMS         json.Number `json:"max_cpu_usage_ms"`
+	DelaySEC              int64       `json:"delay_sec"`
+	ContextFreeActions    []Action    `json:"context_free_actions"`
+	Actions               []Action    `json:"actions"`
+	TransactionExtensions [][]int64   `json:"transaction_extensions"`
 }
 
 type Action struct {
