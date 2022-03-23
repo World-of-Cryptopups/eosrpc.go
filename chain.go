@@ -1,6 +1,10 @@
 package eosrpc
 
-import "github.com/TheBoringDude/go-urljoin"
+import (
+	"fmt"
+
+	"github.com/TheBoringDude/go-urljoin"
+)
 
 const CHAIN_API = "chain"
 
@@ -43,7 +47,9 @@ func (c *ChainAPI) GetBlockInfo(props GetBlockInfoProps) (GetBlockInfoResponse, 
 // GetInfo returns an object containing various details about a specific block on the blockchain.
 func (c *ChainAPI) GetInfo() (GetInfoResponse, error) {
 	var r = GetInfoResponse{}
-	err := request(c.Client, urljoin.UrlJoin(c.ApiUrl, "get_info"), nil, &r)
+	fmt.Println(urljoin.UrlJoin(c.ApiUrl, "get_info"))
+
+	err := request(c.Client, urljoin.UrlJoin(c.ApiUrl, "get_info"), emptyMap, &r)
 
 	return r, err
 }
@@ -115,7 +121,7 @@ func (c *ChainAPI) GetABI(props AccountProps) (GetABIResponse, error) {
 type GetCurrencyBalanceProps struct {
 	Code    string `json:"code"`
 	Account string `json:"account"`
-	Symbol  string `json:"symbol"`
+	Symbol  string `json:"symbol,omitempty"`
 }
 
 // GetCurrencyBalance returns the current balance.

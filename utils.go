@@ -6,6 +6,8 @@ import (
 	"net/http"
 )
 
+var emptyMap = make(map[string]interface{}, 0)
+
 func request(client *http.Client, url string, data interface{}, v interface{}) error {
 	d, err := json.Marshal(data)
 	if err != nil {
