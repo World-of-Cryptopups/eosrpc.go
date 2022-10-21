@@ -1,8 +1,6 @@
 package eosrpc
 
 import (
-	"fmt"
-
 	"github.com/TheBoringDude/go-urljoin"
 )
 
@@ -47,7 +45,6 @@ func (c *ChainAPI) GetBlockInfo(props GetBlockInfoProps) (GetBlockInfoResponse, 
 // GetInfo returns an object containing various details about a specific block on the blockchain.
 func (c *ChainAPI) GetInfo() (GetInfoResponse, error) {
 	var r = GetInfoResponse{}
-	fmt.Println(urljoin.UrlJoin(c.ApiUrl, "get_info"))
 
 	err := request(c.Client, urljoin.UrlJoin(c.ApiUrl, "get_info"), emptyMap, &r)
 
@@ -224,6 +221,7 @@ type GetTableRowsProps struct {
 	Limit         int32  `json:"limit"`
 	Reverse       bool   `json:"reverse"`
 	ShowPayer     bool   `json:"show_payer"`
+	JSON          bool   `json:"json"`
 }
 
 // GetTableRows returns an object containing rows from the specified table.
